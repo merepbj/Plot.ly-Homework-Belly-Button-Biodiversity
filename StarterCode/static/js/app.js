@@ -19,7 +19,7 @@ function showData() {
         d3.select('.panel-body').append('h5').text(key.toUpperCase() +': '+ val)
     });
 
-    var data = [
+    var barData = [
         {
           x: sample_values.slice(0,10).reverse(),
           y: otu_ids.slice(0,10).reverse().map(x=>'OTU ' + x),
@@ -29,7 +29,7 @@ function showData() {
         }
       ];
       
-      Plotly.newPlot('bar', data);
+      Plotly.newPlot('bar', barData);
 
       var trace1 = {
         x: otu_ids,
@@ -41,9 +41,25 @@ function showData() {
         }
       };
       
-      var data = [trace1];
+      var bubbleData = [trace1];
       
-      Plotly.newPlot('bubble', data);
+      Plotly.newPlot('bubble', bubbleData);
+
+
+      var gaugeData = [
+        {
+          domain: { x: [0, 1], y: [0, 1] },
+          value: metadata.wfreq,
+          title: { text: "Weekly Frequency Wash" },
+          type: "indicator",
+          mode: "gauge+number",
+          delta: { reference: 400 },
+          gauge: { axis: { range: [0, 10] } }
+        }
+      ];
+      
+      var layout = { width: 600, height: 400 };
+      Plotly.newPlot('gauge', gaugeData, layout);
 
   });
   
